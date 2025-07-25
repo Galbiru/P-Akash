@@ -66,8 +66,23 @@
         .back-btn:hover { background-color: #e0e7ff; }
 
         .content-container { padding: 1rem; box-sizing: border-box; background-color: rgba(255,255,255,0.05); backdrop-filter: blur(3px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); }
-        .number-grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 4px; } /* Changed to 1 column */
-        .number-btn { display: flex; aspect-ratio: 1; align-items: center; justify-content: center; font-weight: 500; font-size: 0.75rem; border-radius: 4px; cursor: pointer; transition: background-color 0.2s, transform 0.2s; padding: 0.25rem; background-color: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #eef2ff; text-decoration: none; }
+        .number-grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 10px; } /* Changed to 1 column, increased gap */
+        .number-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 1rem; /* Slightly larger font */
+            border-radius: 8px; /* Larger radius for buttons */
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            padding: 0.75rem 1rem; /* More padding */
+            background-color: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #eef2ff;
+            text-decoration: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
         .number-btn:hover { transform: translateY(-1px); background-color: rgba(255,255,255,0.3); }
         .number-btn.disabled { background-color: rgba(100,116,139,0.5); border-color: rgba(100,116,139,0.7); color: #e2e8f0; cursor: not-allowed; }
 
@@ -84,6 +99,17 @@
             z-index: 10; /* Ensure it's above other content */
             max-width: 80px; /* Adjust size as needed */
             height: auto;
+        }
+
+        .instructions-text {
+            color: #1e1b4b;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -113,15 +139,21 @@
             const originalBodyBg = document.body.style.backgroundImage;
             const linesPattern = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23c7d2fe' fill-opacity='0.2'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`;
 
-            const users = [];
-            for (let i = 1; i <= 20; i++) {
-                users.push({
-                    id: `user${i}`,
-                    name: `User ${i}`,
-                    startNum: 35000 + i,
-                    links: ["https://www.example.com"] // All links point to example.com
-                });
-            }
+            const userNames = [
+                "Rondang", "Sulastri", "Evie Bungai", "Mawar", "Rani Nurlianti",
+                "Sri Suwarti", "Yohana Ami", "Neneng Nurlailah", "Sulistyowati", "Poppy",
+                "Susanti", "Lisa Halim", "Rachma", "Nini Sri Kartini", "Rosi",
+                "Ari Yuliawati", "Nurlaili", "Ratih Andayani", "Sulistriyani", "Yeni Maesaroh"
+            ];
+
+            const users = userNames.map((name, index) => ({
+                id: `user${index + 1}`,
+                name: name,
+                links: [
+                    "https://survey.xmfactory.com/survey?b=1024703&l=394cc816c08c2a68", // QNR 1
+                    "https://survey.xmfactory.com/survey?b=1024705&l=80b9022871e75c4c"  // QNR 2
+                ]
+            }));
 
             const welcomePage = document.getElementById('welcome-page');
             const startBtn = document.getElementById('start-btn');
@@ -137,14 +169,19 @@
                 userButton.dataset.target = user.id;
                 userButtonsContainer.appendChild(userButton);
 
-                let numberGridHTML = '';
-                // Each user has only 1 button
-                const num = user.startNum;
-                const url = user.links[0] || '#'; // Use the single link
-                const isEnabled = user.links[0] ? '' : 'disabled';
-                const isClicked = clickedNumbers.includes(String(num)) ? 'clicked' : '';
-                numberGridHTML += `<a href="${url}" target="_blank" rel="noopener noreferrer" class="number-btn ${isEnabled} ${isClicked}">${num}</a>`;
+                let numberGridHTML = '<p class="instructions-text">Klik tombol dibawah untuk mengakses Link questionnaire<br>Good Luck Team!</p>';
+                
+                // QNR 1 button
+                const qnr1Link = user.links[0];
+                const qnr1Enabled = qnr1Link ? '' : 'disabled';
+                const qnr1Clicked = clickedNumbers.includes(`${user.id}-qnr1`) ? 'clicked' : '';
+                numberGridHTML += `<a href="${qnr1Link}" target="_blank" rel="noopener noreferrer" class="number-btn ${qnr1Enabled} ${qnr1Clicked}" data-number-id="${user.id}-qnr1">QNR 1</a>`;
 
+                // QNR 2 button
+                const qnr2Link = user.links[1];
+                const qnr2Enabled = qnr2Link ? '' : 'disabled';
+                const qnr2Clicked = clickedNumbers.includes(`${user.id}-qnr2`) ? 'clicked' : '';
+                numberGridHTML += `<a href="${qnr2Link}" target="_blank" rel="noopener noreferrer" class="number-btn ${qnr2Enabled} ${qnr2Clicked}" data-number-id="${user.id}-qnr2">QNR 2</a>`;
 
                 const contentWrapper = document.createElement('div');
                 contentWrapper.id = user.id;
@@ -277,16 +314,16 @@
                     showMainView();
                 }
                 else if (target.matches('a.number-btn:not(.disabled)')) {
-                    const numberText = target.textContent.trim();
+                    const numberId = target.dataset.numberId;
                     target.classList.add('clicked');
-                    if (!clickedNumbers.includes(numberText)) {
-                        clickedNumbers.push(numberText);
+                    if (!clickedNumbers.includes(numberId)) {
+                        clickedNumbers.push(numberId);
                         localStorage.setItem('clickedNumbers', JSON.stringify(clickedNumbers));
                     }
                 }
                 else if (target.matches('a.number-btn.disabled')) {
                     event.preventDefault(); // Prevent navigation to '#'
-                    alert('Tidak ada link yang tersedia untuk nomor ini.');
+                    alert('Tidak ada link yang tersedia untuk tombol ini.');
                 }
             });
 
