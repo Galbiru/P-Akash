@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Akash 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* PALET WARNA BARU: BIRU LEMBUT */
+        body {
+            background-color: #e0e7ff; /* Fallback */
+            /* Pola titik dengan gradasi biru lavender yang lembut */
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%236366f1' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E"),
+                                 linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            min-height: 100vh; /* Ensure body takes full height for scrolling */
+            transition: background-image 0.7s ease-in-out;
+            padding-top: 60px; /* Add padding to avoid logo overlapping content */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+
+        #welcome-page { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 80vh; color: #312e81; text-align: center; }
+        #welcome-page h2 { font-size: 1.5rem; font-weight: 500; text-shadow: 0 1px 2px rgba(255,255,255,0.5); }
+        #welcome-page .welcome-title { font-family: 'Century', 'Times New Roman', serif; font-size: 3rem; font-weight: 700; color: #1e1b4b; margin: 1rem 0 2rem 0; }
+        #start-btn { background-image: linear-gradient(to right, #818cf8 0%, #4f46e5 51%, #818cf8 100%); background-size: 200% auto; color: white; padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.5s; box-shadow: 0 4px 15px 0 rgba(0,0,0,0.2); }
+        #start-btn:hover { background-position: right center; }
+
+        .main-title { font-family: 'Century', 'Times New Roman', serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; color: #1e1b4b; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .datetime { text-align: center; margin-bottom: 1rem; font-size: 1rem; color: #312e81; font-weight: 600; background-color: rgba(255,255,255,0.3); backdrop-filter: blur(2px); padding: 4px; border-radius: 4px; }
+        .users-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            justify-items: center;
+            max-height: calc(100vh - 200px); /* Adjust based on your header/footer height */
+            overflow-y: auto;
+            padding-right: 10px; /* Space for scrollbar */
+        }
+
+        /* Tombol USER menjadi kotak, warna merah soft dengan motif game console */
+        .user-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            padding: 0.5rem;
+            font-weight: 600;
+            border-radius: 8px; /* Changed to square with slight radius */
+            cursor: pointer;
+            transition: all 0.2s;
+            /* Warna merah soft dengan gradasi */
+            background-image: linear-gradient(to top, #fca5a5 0%, #f87171 100%);
+            /* Motif kotak segitiga X dan lingkaran */
+            background-size: 60px 60px; /* Size of the SVG pattern */
+            background-repeat: repeat;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path fill="rgba(255, 255, 255, 0.2)" d="M0 0h60v60H0z"/><path fill="rgba(255, 255, 255, 0.3)" d="M15 15l10 10m0-10l-10 10M45 15l-10 10m0-10l10 10"/><circle cx="30" cy="30" r="5" fill="rgba(255, 255, 255, 0.4)"/><path d="M15 45l10-10m0 10l-10-10" fill="rgba(255, 255, 255, 0.3)"/><circle cx="45" cy="45" r="5" fill="rgba(255, 255, 255, 0.4)"/><circle cx="15" cy="45" r="5" fill="rgba(255, 255, 255, 0.4)"/><circle cx="45" cy="15" r="5" fill="rgba(255, 255, 255, 0.4)"/></svg>');
+            color: #000000; /* Changed to black font color */
+            border: 2px solid rgba(255,255,255,0.7);
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+        }
+        .user-btn:hover { transform: scale(1.05); }
+
+        .back-btn { display: block; width: 100%; padding: 0.75rem; margin-bottom: 1rem; background-color: #eef2ff; color: #312e81; border: 1px solid #c7d2fe; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .back-btn:hover { background-color: #e0e7ff; }
+
+        .content-container { padding: 1rem; box-sizing: border-box; background-color: rgba(255,255,255,0.05); backdrop-filter: blur(3px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); }
+        .number-grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 4px; } /* Changed to 1 column */
+        .number-btn { display: flex; aspect-ratio: 1; align-items: center; justify-content: center; font-weight: 500; font-size: 0.75rem; border-radius: 4px; cursor: pointer; transition: background-color 0.2s, transform 0.2s; padding: 0.25rem; background-color: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #eef2ff; text-decoration: none; }
+        .number-btn:hover { transform: translateY(-1px); background-color: rgba(255,255,255,0.3); }
+        .number-btn.disabled { background-color: rgba(100,116,139,0.5); border-color: rgba(100,116,139,0.7); color: #e2e8f0; cursor: not-allowed; }
+
+        /* Warna tombol clicked disesuaikan dengan tema biru soft */
+        .number-btn.clicked { background-color: #4338ca; border-color: #4f46e5; }
+        .number-btn.clicked:hover { background-color: #4f46e5; }
+        .fade-transition { transition: opacity 0.5s ease-in-out; }
+
+        /* Style for the logo in the top-left corner */
+        .logo-top-left {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10; /* Ensure it's above other content */
+            max-width: 80px; /* Adjust size as needed */
+            height: auto;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4">
+    <img src="logo.png" alt="Project Akash Logo" class="logo-top-left">
+
+    <div class="max-w-md mx-auto">
+        <div id="welcome-page" class="fade-transition" style="opacity: 1;">
+            <h2>WELCOME TO</h2>
+            <h1 class="welcome-title">Acorn Consultant Quantity Project</h1>
+            <button id="start-btn">PRESS START TO CONTINUE</button>
+        </div>
+        <div id="main-view" class="fade-transition" style="display: none; opacity: 0;">
+            <h1 class="main-title text-center">PROJECT AKASH 2025</h1>
+            <div id="datetime" class="datetime"></div>
+            <div id="user-buttons-container" class="users-grid"></div>
+        </div>
+        <div id="content-display-area"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let clickedNumbers = JSON.parse(localStorage.getItem('clickedNumbers')) || [];
+            let activeContentId = null;
+            let isAnimating = false;
+
+            const originalBodyBg = document.body.style.backgroundImage;
+            const linesPattern = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23c7d2fe' fill-opacity='0.2'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`;
+
+            const users = [];
+            for (let i = 1; i <= 20; i++) {
+                users.push({
+                    id: `user${i}`,
+                    name: `User ${i}`,
+                    startNum: 35000 + i,
+                    links: ["https://www.example.com"] // All links point to example.com
+                });
+            }
+
+            const welcomePage = document.getElementById('welcome-page');
+            const startBtn = document.getElementById('start-btn');
+            const mainView = document.getElementById('main-view');
+            const userButtonsContainer = document.getElementById('user-buttons-container');
+            const contentDisplayArea = document.getElementById('content-display-area');
+            const mainContainer = document.querySelector('.max-w-md');
+
+            function generateUserAssets(user) {
+                const userButton = document.createElement('button');
+                userButton.className = 'user-btn';
+                userButton.textContent = user.name;
+                userButton.dataset.target = user.id;
+                userButtonsContainer.appendChild(userButton);
+
+                let numberGridHTML = '';
+                // Each user has only 1 button
+                const num = user.startNum;
+                const url = user.links[0] || '#'; // Use the single link
+                const isEnabled = user.links[0] ? '' : 'disabled';
+                const isClicked = clickedNumbers.includes(String(num)) ? 'clicked' : '';
+                numberGridHTML += `<a href="${url}" target="_blank" rel="noopener noreferrer" class="number-btn ${isEnabled} ${isClicked}">${num}</a>`;
+
+
+                const contentWrapper = document.createElement('div');
+                contentWrapper.id = user.id;
+                contentWrapper.className = 'content-container fade-transition';
+                contentWrapper.style.display = 'none';
+                contentWrapper.style.opacity = '0';
+                contentWrapper.innerHTML = `<button class="back-btn">← Kembali ke Menu Utama</button><div class="number-grid">${numberGridHTML}</div>`;
+                contentDisplayArea.appendChild(contentWrapper);
+            }
+
+            function showUserGridWithZoom(targetId, clickedButton) {
+                if (isAnimating) return;
+                isAnimating = true;
+                activeContentId = targetId;
+
+                const rect = clickedButton.getBoundingClientRect();
+                const zoomCircle = document.createElement('div');
+                zoomCircle.style.position = 'fixed';
+                zoomCircle.style.left = `${rect.left}px`;
+                zoomCircle.style.top = `${rect.top}px`;
+                zoomCircle.style.width = `${rect.width}px`;
+                zoomCircle.style.height = `${rect.height}px`;
+                zoomCircle.style.backgroundImage = window.getComputedStyle(clickedButton).backgroundImage;
+                zoomCircle.style.borderRadius = '8px'; /* Match the square button radius */
+                zoomCircle.style.zIndex = '9999';
+                zoomCircle.style.transform = 'scale(1)';
+                zoomCircle.style.opacity = '1';
+                zoomCircle.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out';
+                document.body.appendChild(zoomCircle);
+
+                setTimeout(() => {
+                    zoomCircle.style.transform = 'scale(50)';
+                }, 20);
+
+                setTimeout(() => {
+                    mainView.style.opacity = '0'; // Fade out main view
+                    mainView.style.display = 'none'; // Hide after fade out
+                    // Change body background to soft blue gradient with line pattern
+                    const softBlueGradient = `linear-gradient(135deg, #818cf8 0%, #6366f1 100%)`;
+                    document.body.style.backgroundImage = `${linesPattern}, ${softBlueGradient}`;
+
+                    const contentToShow = document.getElementById(targetId);
+                    if (contentToShow) {
+                        contentToShow.style.display = 'block';
+                        // Trigger reflow for transition
+                        contentToShow.offsetWidth;
+                        contentToShow.style.opacity = '1'; // Fade in content
+                    }
+                }, 300);
+
+                setTimeout(() => {
+                    zoomCircle.style.opacity = '0'; // Fade out zoom circle
+                }, 600);
+
+                setTimeout(() => {
+                    zoomCircle.remove();
+                    isAnimating = false;
+                }, 1200);
+            }
+
+            function showMainView() {
+                if (isAnimating || !activeContentId) return;
+                isAnimating = true;
+
+                const activeContent = document.getElementById(activeContentId);
+                if (activeContent) {
+                    activeContent.style.opacity = '0'; // Fade out active content
+                }
+
+                // Find the original button to animate back to it
+                const targetButton = document.querySelector(`.user-btn[data-target="${activeContentId}"]`);
+                if (!targetButton) { isAnimating = false; return; }
+                const rectTarget = targetButton.getBoundingClientRect();
+
+                const color = window.getComputedStyle(activeContent).backgroundImage; // Use active content's background color for zoom out
+                const zoomCircle = document.createElement('div');
+                zoomCircle.style.position = 'fixed';
+                // Start with the full screen for the "zoom out" effect
+                zoomCircle.style.left = '0';
+                zoomCircle.style.top = '0';
+                zoomCircle.style.width = '100vw';
+                zoomCircle.style.height = '100vh';
+                zoomCircle.style.backgroundImage = color;
+                zoomCircle.style.borderRadius = '0%'; // Start as a rectangle
+                zoomCircle.style.zIndex = '9999';
+                zoomCircle.style.transition = 'all 0.7s cubic-bezier(0.5, 0, 0.75, 0)';
+                document.body.appendChild(zoomCircle);
+
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        if (activeContent) {
+                            activeContent.style.display = 'none';
+                        }
+                        mainView.style.display = 'block';
+                        // Trigger reflow for transition
+                        mainView.offsetWidth;
+                        mainView.style.opacity = '1'; // Fade in main view
+                        document.body.style.backgroundImage = originalBodyBg; // Revert to original body background
+
+                        // Animate zoomCircle to the position and size of the target button
+                        zoomCircle.style.left = `${rectTarget.left}px`;
+                        zoomCircle.style.top = `${rectTarget.top}px`;
+                        zoomCircle.style.width = `${rectTarget.width}px`;
+                        zoomCircle.style.height = `${rectTarget.height}px`;
+                        zoomCircle.style.borderRadius = '8px'; // Transition to square
+                    }, 20); // Small delay to ensure display: block is applied before transition
+
+                    setTimeout(() => {
+                        zoomCircle.remove();
+                        activeContentId = null;
+                        isAnimating = false;
+                    }, 750);
+                });
+            }
+
+            function updateDateTime() {
+                const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Jakarta' };
+                document.getElementById('datetime').textContent = now.toLocaleString('id-ID', options);
+            }
+
+            mainContainer.addEventListener('click', function(event) {
+                const target = event.target.closest('.user-btn, .back-btn, a.number-btn');
+                if (!target || isAnimating) return;
+
+                if (target.matches('.user-btn')) {
+                    showUserGridWithZoom(target.dataset.target, target);
+                }
+                else if (target.matches('.back-btn')) {
+                    showMainView();
+                }
+                else if (target.matches('a.number-btn:not(.disabled)')) {
+                    const numberText = target.textContent.trim();
+                    target.classList.add('clicked');
+                    if (!clickedNumbers.includes(numberText)) {
+                        clickedNumbers.push(numberText);
+                        localStorage.setItem('clickedNumbers', JSON.stringify(clickedNumbers));
+                    }
+                }
+                else if (target.matches('a.number-btn.disabled')) {
+                    event.preventDefault(); // Prevent navigation to '#'
+                    alert('Tidak ada link yang tersedia untuk nomor ini.');
+                }
+            });
+
+            // Generate user buttons and their content grids
+            users.forEach(generateUserAssets);
+
+            startBtn.addEventListener('click', function() {
+                if(isAnimating) return; isAnimating = true;
+                welcomePage.style.opacity = '0';
+                setTimeout(() => {
+                    welcomePage.style.display = 'none';
+                    mainView.style.display = 'block';
+                    setTimeout(() => { mainView.style.opacity = '1'; isAnimating = false; }, 20);
+                }, 500);
+            });
+
+            // Update date and time initially and every second
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+        });
+    </script>
+</body>
+</html>
