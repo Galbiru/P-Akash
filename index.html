@@ -18,13 +18,13 @@
             box-sizing: border-box; /* Include padding in element's total width and height */
         }
 
-        #welcome-page { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 80vh; color: #312e81; text-align: center; }
+        #welcome-page { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 80vh; color: #312e81; text-align: center; padding: 1rem;}
         #welcome-page h2 { font-size: 1.5rem; font-weight: 500; text-shadow: 0 1px 2px rgba(255,255,255,0.5); }
         #welcome-page .welcome-title { font-family: 'Century', 'Times New Roman', serif; font-size: 3rem; font-weight: 700; color: #1e1b4b; margin: 1rem 0 2rem 0; }
         #start-btn { background-image: linear-gradient(to right, #818cf8 0%, #4f46e5 51%, #818cf8 100%); background-size: 200% auto; color: white; padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.5s; box-shadow: 0 4px 15px 0 rgba(0,0,0,0.2); }
         #start-btn:hover { background-position: right center; }
 
-        .main-title { font-family: 'Century', 'Times New Roman', serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; color: #1e1b4b; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .main-title { font-family: 'Century', 'Times New Roman', serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; color: #1e1b4b; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); text-align: center;}
         .datetime { text-align: center; margin-bottom: 1rem; font-size: 1rem; color: #312e81; font-weight: 600; background-color: rgba(255,255,255,0.3); backdrop-filter: blur(2px); padding: 4px; border-radius: 4px; }
         .users-grid {
             display: grid;
@@ -37,7 +37,6 @@
             padding-right: 10px; /* Space for scrollbar */
         }
 
-        /* Tombol USER menjadi kotak, warna merah soft dengan motif game console */
         .user-btn {
             display: flex;
             align-items: center;
@@ -46,16 +45,14 @@
             height: 100px;
             padding: 0.5rem;
             font-weight: 600;
-            border-radius: 8px; /* Changed to square with slight radius */
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
-            /* Warna merah soft dengan gradasi */
             background-image: linear-gradient(to top, #fca5a5 0%, #f87171 100%);
-            /* Motif kotak segitiga X dan lingkaran */
-            background-size: 60px 60px; /* Size of the SVG pattern */
+            background-size: 60px 60px;
             background-repeat: repeat;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path fill="rgba(255, 255, 255, 0.2)" d="M0 0h60v60H0z"/><path fill="rgba(255, 255, 255, 0.3)" d="M15 15l10 10m0-10l-10 10M45 15l-10 10m0-10l10 10"/><circle cx="30" cy="30" r="5" fill="rgba(255, 255, 255, 0.4)"/><path d="M15 45l10-10m0 10l-10-10" fill="rgba(255, 255, 255, 0.3)"/><circle cx="45" cy="45" r="5" fill="rgba(255, 255, 255, 0.4)"/><circle cx="15" cy="45" r="5" fill="rgba(255, 255, 255, 0.4)"/><circle cx="45" cy="15" r="5" fill="rgba(255, 255, 255, 0.4)"/></svg>');
-            color: #000000; /* Changed to black font color */
+            color: #000000;
             border: 2px solid rgba(255,255,255,0.7);
             text-align: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.25);
@@ -66,17 +63,17 @@
         .back-btn:hover { background-color: #e0e7ff; }
 
         .content-container { padding: 1rem; box-sizing: border-box; background-color: rgba(255,255,255,0.05); backdrop-filter: blur(3px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); }
-        .number-grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 10px; } /* Changed to 1 column, increased gap */
+        .number-grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 10px; }
         .number-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 500;
-            font-size: 1rem; /* Slightly larger font */
-            border-radius: 8px; /* Larger radius for buttons */
+            font-size: 1rem;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.2s, transform 0.2s;
-            padding: 0.75rem 1rem; /* More padding */
+            padding: 0.75rem 1rem;
             background-color: rgba(255,255,255,0.15);
             border: 1px solid rgba(255,255,255,0.25);
             color: #eef2ff;
@@ -86,18 +83,16 @@
         .number-btn:hover { transform: translateY(-1px); background-color: rgba(255,255,255,0.3); }
         .number-btn.disabled { background-color: rgba(100,116,139,0.5); border-color: rgba(100,116,139,0.7); color: #e2e8f0; cursor: not-allowed; }
 
-        /* Warna tombol clicked disesuaikan dengan tema biru soft */
         .number-btn.clicked { background-color: #4338ca; border-color: #4f46e5; }
         .number-btn.clicked:hover { background-color: #4f46e5; }
         .fade-transition { transition: opacity 0.5s ease-in-out; }
 
-        /* Style for the logo in the top-left corner */
         .logo-top-left {
             position: fixed;
             top: 10px;
             left: 10px;
-            z-index: 10; /* Ensure it's above other content */
-            max-width: 80px; /* Adjust size as needed */
+            z-index: 10;
+            max-width: 80px;
             height: auto;
         }
 
@@ -110,6 +105,101 @@
             padding: 8px;
             background-color: rgba(255,255,255,0.3);
             border-radius: 8px;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+
+        /* Untuk layar dengan lebar maksimum 768px (umumnya smartphone dan tablet potret) */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 50px; /* Adjust padding for smaller logo */
+            }
+
+            .logo-top-left {
+                max-width: 60px; /* Smaller logo on mobile */
+            }
+
+            #welcome-page .welcome-title {
+                font-size: 2.2rem; /* Smaller title on mobile */
+                margin: 0.5rem 0 1.5rem 0;
+            }
+
+            #welcome-page h2 {
+                font-size: 1.2rem;
+            }
+
+            #start-btn {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.9rem;
+            }
+
+            .main-title {
+                font-size: 1.8rem; /* Smaller main title */
+                margin-top: 0.5rem; /* Reduce top margin */
+            }
+
+            .datetime {
+                font-size: 0.9rem; /* Smaller datetime font */
+                padding: 3px;
+            }
+
+            .users-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+                gap: 1rem; /* Smaller gap */
+                max-height: calc(100vh - 180px); /* Adjust max height for content */
+            }
+
+            .user-btn {
+                width: 80px; /* Smaller user buttons */
+                height: 80px;
+                font-size: 0.8rem; /* Smaller font in user buttons */
+                padding: 0.25rem;
+            }
+
+            .content-container {
+                padding: 0.75rem; /* Less padding in content container */
+            }
+
+            .number-btn {
+                font-size: 0.9rem; /* Slightly smaller font for QNR buttons */
+                padding: 0.6rem 0.8rem;
+            }
+
+            .instructions-text {
+                font-size: 0.8rem; /* Smaller instructions text */
+                padding: 6px;
+            }
+        }
+
+        /* Untuk layar dengan lebar maksimum 480px (sangat kecil, seperti iPhone SE) */
+        @media (max-width: 480px) {
+            #welcome-page .welcome-title {
+                font-size: 1.8rem;
+            }
+
+            #welcome-page h2 {
+                font-size: 1rem;
+            }
+
+            .main-title {
+                font-size: 1.5rem;
+            }
+
+            .users-grid {
+                grid-template-columns: repeat(2, 1fr); /* Still 2 columns, might need 1 for very small */
+                gap: 0.75rem;
+            }
+
+            .user-btn {
+                width: 70px;
+                height: 70px;
+                font-size: 0.75rem;
+            }
+
+            .number-btn {
+                font-size: 0.85rem;
+                padding: 0.5rem 0.7rem;
+            }
         }
     </style>
 </head>
@@ -170,7 +260,7 @@
                 userButtonsContainer.appendChild(userButton);
 
                 let numberGridHTML = '<p class="instructions-text">Klik tombol dibawah untuk mengakses Link questionnaire<br>Good Luck Team!</p>';
-                
+
                 // QNR 1 button
                 const qnr1Link = user.links[0];
                 const qnr1Enabled = qnr1Link ? '' : 'disabled';
